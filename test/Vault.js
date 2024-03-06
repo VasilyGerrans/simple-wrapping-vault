@@ -37,7 +37,6 @@ describe("Vault", async () => {
         expect(await vault.ethBalances(user)).to.be.eq(full);
 
         await expect(vault.connect(user).withdrawEth(more)).to.be.revertedWith("Insufficient ETH balance")
-
         await vault.connect(user).withdrawEth(half);
 
         expect(await vault.ethBalances(user)).to.be.eq(half);
@@ -47,13 +46,11 @@ describe("Vault", async () => {
         await expect(vault.connect(wethHolder).depositToken(wethAddress, full)).to.be.reverted;
         
         await wethToken.connect(wethHolder).approve(vault.target, full);
-
         await vault.connect(wethHolder).depositToken(wethAddress, full);
 
         expect(await vault.balances(wethHolder.address, wethAddress)).to.be.eq(full);
 
         await expect(vault.connect(wethHolder).withdrawToken(wethAddress, more)).to.be.revertedWith("Insufficient token balance")
-
         await vault.connect(wethHolder).withdrawToken(wethAddress, half);
 
         expect(await vault.balances(wethHolder.address, wethAddress)).to.be.eq(half);
@@ -72,7 +69,6 @@ describe("Vault", async () => {
 
     it("unwraps WETH", async () => {
         await wethToken.connect(wethHolder).approve(vault.target, full);
-
         await vault.connect(wethHolder).depositToken(wethAddress, full);
 
         await expect(vault.connect(wethHolder).unwrapEth(more)).to.be.revertedWith("Insufficient WETH balance");

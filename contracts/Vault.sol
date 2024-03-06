@@ -42,7 +42,6 @@ contract Vault {
         require(IERC20(token).transferFrom(msg.sender, address(this), amount), "Token transfer failed");
 
         realTokenBalance = IERC20(token).balanceOf(address(this)) - realTokenBalance;
-
         balances[msg.sender][token] += realTokenBalance;
 
         emit TokenDeposited(msg.sender, token, realTokenBalance);
